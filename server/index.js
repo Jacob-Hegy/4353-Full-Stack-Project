@@ -19,9 +19,9 @@ app.get("/", (req, res) => {
 
 /* TESTING DB CONNECTION */
 
-// db.query(`select * from fuel_quoting.Clients`, (err, res) => {
-//   return console.log(res);
-// });
+db.query(`select * from fuel_quoting.Clients`, (err, res) => {
+  return console.log(res);
+});
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Express server running on port ${PORT}`));
