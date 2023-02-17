@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-const Dropdown = ({ label, children }) => {
+const Dropdown = ({ label, classes, children }) => {
   const [show, setShow] = useState(false);
 
   const onMouseEnter = () => {
@@ -14,7 +14,7 @@ const Dropdown = ({ label, children }) => {
 
   return (
     <li
-      className="relative h-full flex items-center justify-center"
+      className={`relative h-full flex items-center justify-center`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -39,7 +39,7 @@ const Dropdown = ({ label, children }) => {
       <ul
         className={`${
           show ? "block" : "hidden"
-        } absolute top-[75px] w-full bg-primary-300 text-white p-4 rounded-md font-normal flex flex-col gap-2`}
+        } ${classes} absolute top-[75px] w-full bg-white text-primary-300 p-4 rounded-md font-medium flex flex-col gap-2 border-t-2 shadow-md`}
       >
         {children}
       </ul>

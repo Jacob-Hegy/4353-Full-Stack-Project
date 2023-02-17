@@ -1,5 +1,0 @@
-.account-dropdown:focus + .account-dropdown-inner {
-  position: absolute;
-  display: block;
-  top: 40px;
-}
