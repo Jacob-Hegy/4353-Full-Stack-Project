@@ -10,6 +10,9 @@ const Select = ({ name, prompt, data }) => {
   const closedStyles = `max-h-0 overflow-hidden p-0`;
   const focusStyles =
     "focus:bg-white focus:placeholder:text-primary-300 focus:text-primary-300 focus:uppercase focus:rounded-bl-none focus:rounded-br-none";
+  const liStyles = `relative h-[40px] flex items-center cursor-pointer text-white bg-primary-300 hover:bg-white hover:text-primary-300 px-3 duration-300 ${
+    closed && closedStyles
+  }`;
 
   const inputElement = useRef();
   const ulElement = useRef();
@@ -77,24 +80,12 @@ const Select = ({ name, prompt, data }) => {
       >
         {query === ""
           ? data.map((item, index) => (
-              <li
-                key={index}
-                className={`relative h-[40px] flex items-center cursor-pointer text-white bg-primary-300 hover:bg-white/5 hover:text-primary-300 px-3 duration-300 ${
-                  closed && closedStyles
-                }`}
-                onClick={handleItemClick}
-              >
+              <li key={index} className={liStyles} onClick={handleItemClick}>
                 {item.toUpperCase()}
               </li>
             ))
           : list.map((item, index) => (
-              <li
-                key={index}
-                className={`relative h-8 flex items-center cursor-pointer ${
-                  closed && closedStyles
-                }`}
-                onClick={handleItemClick}
-              >
+              <li key={index} className={liStyles} onClick={handleItemClick}>
                 {item.toUpperCase()}
               </li>
             ))}
