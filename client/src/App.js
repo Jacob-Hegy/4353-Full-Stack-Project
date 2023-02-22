@@ -15,7 +15,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<Home />} />
       <Route path="contactus" element={<ContactUs />} />
-      {/* Need to implement Login detetction */}
+      {/* Need to implement Login detection */}
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<SignUp />} />
     </Route>

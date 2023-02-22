@@ -5,7 +5,7 @@ import Logo from "../../assets/logo.svg";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 const Navbar = ({ isTopOfPage }) => {
-  const [isloggedIn, setIsLoggedIn] = useState(true);
+  const [isloggedIn, setIsLoggedIn] = useState(false);
   const [isMenuToggled, setIsMenuToggled] = useState(false);
   const isAboveMediumScreens = useMediaQuery("(min-width: 768px)");
   const navbarShadow = isTopOfPage ? "" : "drop-shadow";
@@ -49,7 +49,7 @@ const Navbar = ({ isTopOfPage }) => {
             </Dropdown>
           ) : (
             <li>
-              <NavLink to="login"></NavLink>
+              <NavLink to="login">Login</NavLink>
             </li>
           )}
 

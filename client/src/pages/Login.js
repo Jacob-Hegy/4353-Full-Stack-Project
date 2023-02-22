@@ -27,17 +27,17 @@ const Login = () => {
                         </div>
                         <div className='grid grid-rows-2 gap-5'>
                             <div className='flex flex-col'>
-                                <label for="username" className='font-bold py-1'>User Name</label>
+                                <label htmlFor="username" className='font-bold py-1'>User Name</label>
                                 <input type="text" id="username" className="h-12 px-3 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"></input>
                             </div>
                             <div className='flex flex-col'>
-                                <label for="password" className='font-bold py-1'>Password</label>
+                                <label htmlFor="password" className='font-bold py-1'>Password</label>
                                 <input type="password" id="password" className="h-12 px-3 -white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"></input>
                             </div>
                         </div>
                         
                         <Button type='submit' content="Log in"></Button>
-                        <div className='py-6'>Don’t have an account? <a href='#' className='underline text-[#89CDFE]'>Sign Up</a> here.</div>
+                        <div className='py-6'>Don't have an account? <a href='#' className='underline text-[#89CDFE]'>Sign Up</a> here.</div>
                     </div>
                 </form>
                 
