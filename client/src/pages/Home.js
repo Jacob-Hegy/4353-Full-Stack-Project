@@ -1,5 +1,6 @@
 import React from "react";
 import gasStation from "../assets/gas-station.svg";
+import aboutImg from '../assets/about-img.svg'
 import Button from "../components/input/Button";
 import Select from "../components/input/Select";
 import { stateCodes, products } from "../data/data";
@@ -69,20 +70,86 @@ const Home = () => {
       </div>
       </section>
           
-      <section className="grid grid-cols-4  h-[100vh] d-block">
-          <div>One</div>
-          <div>One</div>
-          <div>One</div>
-          <div>One</div>
+      <section id="Stats-section" className="grid grid-cols-4 h-[325px] d-block justify-center px-[200px]">
+          <div>
+            <div className="flex items-center space-x-4 mb-4">
+              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#89CDFE]"></div>
+              <p className="text-[20px] font-bold">3258</p>
+            </div>
+            <div className="max-w-[200px]">
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi</p>
+            </div>
+          </div>
+          <div>
+            <div className="flex items-center space-x-4 mb-4">
+              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#89CDFE]"></div>
+              <p className="text-[20px] font-bold">3258</p>
+            </div>
+            <div className="max-w-[200px]">
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi</p>
+            </div>
+          </div>
+          <div>
+            <div className="flex items-center space-x-4 mb-4">
+              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#89CDFE]"></div>
+              <p className="text-[20px] font-bold">3258</p>
+            </div>
+            <div className="max-w-[200px]">
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi</p>
+            </div>
+          </div>
+          <div>
+            <div className="flex items-center space-x-4 mb-4">
+              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#89CDFE]"></div>
+              <p className="text-[20px] font-bold">3258</p>
+            </div>
+            <div className="max-w-[200px]">
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi</p>
+            </div>
+          </div>
       </section>
 
-      <section>
-
+      <section id="About-section" className="h-[620px] bg-[#F5F5F5]">
+            <div className="flex h-full">
+                <div className="flex-1 justify-center m-auto">
+                  <img className="m-auto" src={aboutImg}></img>
+                </div>
+                <div className="flex-1 text-white justify-center m-auto">
+                  <div className="w-[540px] h-[450px] px-[53px] py-[29px] text-black text-[17px] font-medium bg-white border-4 border-[#89CDFE] rounded-lg">
+                    <h5 className="text-[#89CDFE]">About Us</h5>
+                    <h2 className="text-[28px] font-bold">25+ Years Of Experience In The Oil  Industry</h2>
+                    <ul>
+                      <li className="mt-3">
+                        <div className="flex space-x-4">
+                          <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[#89CDFE] mt-2"></div>
+                          <div className="flex-1 min-w-0">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi</p>
+                          </div>
+                        </div>
+                      </li>
+                      <li className="mt-3">
+                        <div className="flex space-x-4">
+                          <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[#89CDFE] mt-2"></div>
+                          <div className="flex-1 min-w-0">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi</p>
+                          </div>
+                        </div>
+                      </li>
+                      <li className="mt-3">
+                        <div className="flex space-x-4">
+                          <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[#89CDFE] mt-2"></div>
+                          <div className="flex-1 min-w-0">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi</p>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+            </div>
       </section>
 
-      <Footer>
-
-      </Footer>
+      <Footer></Footer>
     </div>
     
   );
