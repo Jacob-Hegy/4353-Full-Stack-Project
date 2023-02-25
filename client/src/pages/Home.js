@@ -19,7 +19,7 @@ const Home = () => {
           } h-full`}
         >
           <div
-          className={`max-w-[1400px] mx-auto  flex ${
+          className={`max-w-[1400px] mx-auto h-full flex ${
             isAboveMediumScreens ? "justify-between" : "justify-center"
           } items-center gap-8 px-4`}
           >
@@ -69,7 +69,7 @@ const Home = () => {
       </div>
       </section>
           
-      <section className="grid grid-cols-4  h-[100vh] d-block bg-black">
+      <section className="grid grid-cols-4  h-[100vh] d-block">
           <div>One</div>
           <div>One</div>
           <div>One</div>

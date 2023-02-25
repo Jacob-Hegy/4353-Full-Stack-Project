@@ -3,7 +3,7 @@ import Button from "../components/input/Button.js"
 
 const ContactUs = () => {
   return (
-    <div className='flex flex-row h-full'>
+    <div className='flex flex-row h-[100vh]'>
 
     
       <form className='w-[40%] h-full bg-white p-10 place-self-end justify-center self-center flex flex-col z-[30]'>
@@ -38,7 +38,7 @@ const ContactUs = () => {
       
       </form>
       <div className='w-[60%] h-full bg-[#21252B]'>
-        <div className='border-box absolute w-[415px] h-[415px] border border border-[#89CDFE] top-[5%] left-[60%] rounded-[100%] -z-1'></div>
+        <div className='border-box absolute w-[415px] h-[415px] border border border-[#89CDFE] top-[5%] left-[60%] rounded-[100%] '></div>
         <div className='border-box absolute w-[415px] h-[415px] border border-dashed border-[#89CDFE] top-[33%] left-[60%] rounded-[100%]'></div>
         <div className='border-box absolute w-[415px] h-[415px] border border border-[#89CDFE] top-[65%] left-[60%] rounded-[100%]'></div>
       </div>
