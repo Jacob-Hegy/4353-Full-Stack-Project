@@ -12,7 +12,7 @@ const Navbar = ({ isTopOfPage }) => {
 
   return (
     <nav
-      className={`px-12 flex h-[75px] justify-between items-center font-semibold shadow-md ${navbarShadow}`}
+      className={`px-12 z-50 flex h-[75px] justify-between items-center font-semibold shadow-md ${navbarShadow}`}
     >
       <NavLink to="/">
         <img src={Logo} alt="Tetra Logo" width={135} />
@@ -87,7 +87,7 @@ const Navbar = ({ isTopOfPage }) => {
       {/* Mobile NavMenu */}
 
       {!isAboveMediumScreens && isMenuToggled && (
-        <div className="fixed right-0 bottom-0 z-40 w-[300px] bg-primary-500 h-full p-6">
+        <div className="fixed right-0 bottom-0 z-5 w-[300px] bg-primary-500 h-full p-6">
           <div className="flex justify-end">
             <button onClick={() => setIsMenuToggled(!isMenuToggled)}>
               <svg

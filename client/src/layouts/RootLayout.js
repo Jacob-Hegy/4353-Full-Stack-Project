@@ -19,7 +19,7 @@ const RootLayout = () => {
   return (
     <>
       <Navbar isTopOfPage={isTopOfPage} />
-      <main className="h-[calc(100%-75px)]">
+      <main className="min-h-[calc(100%-75px)]">
         <Outlet />
       </main>
     </>

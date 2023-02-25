@@ -37,7 +37,7 @@ const Login = () => {
                         </div>
                         
                         <Button type='submit' content="Log in"></Button>
-                        <div className='py-6'>Don't have an account? <a href='#' className='underline text-[#89CDFE]'>Sign Up</a> here.</div>
+                        <div className='py-6'>Don't have an account? <a href='../SignUp' className='underline text-[#89CDFE]'>Sign Up</a> here.</div>
                     </div>
                 </form>
                 

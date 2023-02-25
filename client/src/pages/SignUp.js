@@ -2,6 +2,8 @@ import React from 'react'
 import SignUpImg from "../assets/sign-up.svg"
 import Button from "../components/input/Button.js"
 import useMediaQuery from "../hooks/useMediaQuery";
+import { HashLink as Link } from 'react-router-hash-link';
+
 
 const SignUp = () =>{
     const isAboveMediumScreens = useMediaQuery("(min-width: 768px)");
@@ -41,7 +43,9 @@ const SignUp = () =>{
                         </div>
                         
                         <Button type='submit' content="Log in"></Button>
-                        <div className='py-6'>Don't have an account? <a href='#' className='underline text-[#89CDFE]'>Sign Up</a> here.</div>
+                        
+                        <div className='py-6'>Already have an account? <a href='../Login' className='underline text-[#89CDFE]'>Log in</a></div> 
+                        
                     </div>
                 </form>
                 
