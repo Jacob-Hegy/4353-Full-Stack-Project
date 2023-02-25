@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import ContactUs from "./pages/ContactUs";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import Profile from "./pages/Account";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -16,6 +17,7 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="contactus" element={<ContactUs />} />
       {/* Need to implement Login detection */}
+      <Route path="account" element={<Profile />} />
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<SignUp />} />
     </Route>

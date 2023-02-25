@@ -11,6 +11,7 @@ module.exports = {
         "primary-500": "#1C252B",
         "secondary-100": "#bde3ff",
         "secondary-200": "#3ca0e7",
+        "secondary-300": "#89cdfe"
       },
       backgroundImage: (theme) => ({
         "gradient-desktop":
