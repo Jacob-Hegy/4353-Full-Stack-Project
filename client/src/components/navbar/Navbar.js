@@ -26,7 +26,7 @@ const Navbar = ({ isTopOfPage }) => {
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <a href="#about">About</a>
+            <a href="#About-section">About</a>
           </li>
           <li>
             <NavLink to="contactus">Contact Us</NavLink>
