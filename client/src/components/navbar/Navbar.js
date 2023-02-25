@@ -26,7 +26,7 @@ const Navbar = ({ isTopOfPage }) => {
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <a href="#About-section">About</a>
+            <a href="#About-section">Profile</a>
           </li>
           <li>
             <NavLink to="contactus">Contact Us</NavLink>
@@ -38,7 +38,7 @@ const Navbar = ({ isTopOfPage }) => {
               isAboveMediumScreens={isAboveMediumScreens}
             >
               <li>
-                <NavLink to="profile">Profile</NavLink>
+                <NavLink to="account">Profile</NavLink>
               </li>
               <li>
                 <NavLink to="quotes">Quotes</NavLink>
@@ -163,7 +163,7 @@ const Navbar = ({ isTopOfPage }) => {
             {isloggedIn ? (
               <>
                 <li>
-                  <NavLink to="profile" className={"flex gap-2 items-center"}>
+                  <NavLink to="account" className={"flex gap-2 items-center"}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
