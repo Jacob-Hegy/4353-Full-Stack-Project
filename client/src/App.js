@@ -16,7 +16,6 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<Home />} />
-      <Route path="contactus" element={<ContactUs />} />
       {/* Need to implement Login detection */}
       <Route path="account" element={<Profile />} />
       <Route path="login" element={<Login />} />

@@ -6,6 +6,21 @@ import Select from "../components/input/Select";
 import { stateCodes, products } from "../data/data";
 import useMediaQuery from "../hooks/useMediaQuery";
 import Footer from "../components/Footer.js";
+import ContactUs from "./ContactUs";
+
+const Stat = ({ number, children }) => {
+  return (
+    <div className="justify-self-center">
+      <div className="flex items-center space-x-4 mb-4">
+        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#89CDFE]"></div>
+        <p className="text-[20px] font-bold">{number}</p>
+      </div>
+      <div className="max-w-[200px]">
+        <p>{children}</p>
+      </div>
+    </div>
+  );
+};
 
 const Home = () => {
   const isAboveMediumScreens = useMediaQuery("(min-width: 768px)");
@@ -13,7 +28,7 @@ const Home = () => {
 
   return (
     <div>
-      <section id="Hero" className="h-[100vh]">
+      <section id="Hero" className="h-[calc(100vh-75px)]">
         <div
           className={`${
             isAboveMediumScreens ? "bg-gradient-desktop" : "bg-gradient-mobile"
@@ -43,8 +58,8 @@ const Home = () => {
             <form
               action=""
               className={`w-[500px] h-[500px] bg-white p-10 place-self-end self-center rounded-xl shadow-md flex flex-col justify-center z-[30] ${
-                isBelowLargeScreens ? "ml-auto" : ""
-              } ${!isAboveMediumScreens ? "ml-0" : ""}`}
+                isBelowLargeScreens && isAboveMediumScreens ? "ml-auto" : ""
+              }`}
             >
               <h1 className="text-center font-bold text-3xl mb-5">
                 Get Your Next Fuel Quote Today
@@ -76,67 +91,47 @@ const Home = () => {
         </div>
       </section>
 
+      {/* STATS SECTION */}
+
       <section
         id="Stats-section"
-        className="grid grid-cols-4 h-[325px] d-block justify-center px-[200px]"
+        className={`grid ${
+          isAboveMediumScreens ? "grid-cols-4 h-[325px]" : "grid-rows-4"
+        } justify-center gap-4 px-[8vw] pb-8`}
       >
-        <div>
-          <div className="flex items-center space-x-4 mb-4">
-            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#89CDFE]"></div>
-            <p className="text-[20px] font-bold">3258</p>
-          </div>
-          <div className="max-w-[200px]">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-              mollitia, molestiae quas vel sint commodi
-            </p>
-          </div>
-        </div>
-        <div>
-          <div className="flex items-center space-x-4 mb-4">
-            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#89CDFE]"></div>
-            <p className="text-[20px] font-bold">3258</p>
-          </div>
-          <div className="max-w-[200px]">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-              mollitia, molestiae quas vel sint commodi
-            </p>
-          </div>
-        </div>
-        <div>
-          <div className="flex items-center space-x-4 mb-4">
-            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#89CDFE]"></div>
-            <p className="text-[20px] font-bold">3258</p>
-          </div>
-          <div className="max-w-[200px]">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-              mollitia, molestiae quas vel sint commodi
-            </p>
-          </div>
-        </div>
-        <div>
-          <div className="flex items-center space-x-4 mb-4">
-            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#89CDFE]"></div>
-            <p className="text-[20px] font-bold">3258</p>
-          </div>
-          <div className="max-w-[200px]">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-              mollitia, molestiae quas vel sint commodi
-            </p>
-          </div>
-        </div>
+        <Stat number={3258}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+          mollitia, molestiae quas vel sint commodi
+        </Stat>
+        <Stat number={3258}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+          mollitia, molestiae quas vel sint commodi
+        </Stat>
+        <Stat number={3258}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+          mollitia, molestiae quas vel sint commodi
+        </Stat>
+        <Stat number={3258}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+          mollitia, molestiae quas vel sint commodi
+        </Stat>
       </section>
+
+      {/* ABOUT US SECTION */}
 
       <section id="about-section" className="h-[620px] bg-[#F5F5F5]">
         <div className="flex h-full">
-          <div className="flex-1 justify-center m-auto">
-            <img className="m-auto" src={aboutImg}></img>
-          </div>
+          {isAboveMediumScreens && (
+            <div className="flex-1 justify-center m-auto">
+              <img className="m-auto" src={aboutImg}></img>
+            </div>
+          )}
           <div className="flex-1 text-white justify-center m-auto">
-            <div className="w-[540px] h-[450px] px-[53px] py-[29px] text-black text-[17px] font-medium bg-white border-4 border-[#89CDFE] rounded-lg">
+            <div
+              className={`w-[540px] h-[450px] px-[53px] py-[29px] text-black text-[17px] font-medium bg-white border-4 border-[#89CDFE] rounded-lg ${
+                !isAboveMediumScreens && "mx-auto"
+              }`}
+            >
               <h5 className="text-[#89CDFE]">About Us</h5>
               <h2 className="text-[28px] font-bold">
                 25+ Years Of Experience In The Oil Industry
@@ -180,7 +175,9 @@ const Home = () => {
           </div>
         </div>
       </section>
-
+      <section id="contactus">
+        <ContactUs />
+      </section>
       <Footer />
     </div>
   );

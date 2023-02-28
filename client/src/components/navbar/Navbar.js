@@ -30,7 +30,7 @@ const Navbar = ({ isTopOfPage }) => {
             <a href="#about-section">About</a>
           </li>
           <li>
-            <NavLink to="contactus">Contact Us</NavLink>
+            <HashLink to="/#contactus">Contact Us</HashLink>
           </li>
 
           {isloggedIn ? (
