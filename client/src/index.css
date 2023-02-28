@@ -2,11 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  box-sizing: border-box;
+}
+
 html,
 body,
 #root {
   height: 100%;
-  scroll-behavior: smooth !important; 
+  scroll-behavior: smooth !important;
 }
 
 nav ul li {
@@ -34,8 +38,8 @@ select::before {
   height: 50px;
 }
 
-table th, table td {
+table th,
+table td {
   padding: 5px;
   width: 200px;
 }
-

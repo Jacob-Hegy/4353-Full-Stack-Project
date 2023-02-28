@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import Dropdown from "./Dropdown";
 import Logo from "../../assets/logo.svg";
 import useMediaQuery from "../../hooks/useMediaQuery";
@@ -12,7 +13,7 @@ const Navbar = ({ isTopOfPage }) => {
 
   return (
     <nav
-      className={`px-12 z-50 flex h-[75px] justify-between items-center font-semibold shadow-md ${navbarShadow}`}
+      className={`px-12 z-50 flex h-[75px] bg-white fixed top-0 w-full justify-between items-center font-semibold shadow-md ${navbarShadow}`}
     >
       <NavLink to="/">
         <img src={Logo} alt="Tetra Logo" width={135} />
@@ -23,10 +24,10 @@ const Navbar = ({ isTopOfPage }) => {
       {isAboveMediumScreens ? (
         <ul className={"h-full flex justify-between items-center gap-6"}>
           <li>
-            <NavLink to="/">Home</NavLink>
+            <HashLink to={"/#Hero"}>Home</HashLink>
           </li>
           <li>
-            <a href="#About-section">Profile</a>
+            <a href="#about-section">About</a>
           </li>
           <li>
             <NavLink to="contactus">Contact Us</NavLink>
