@@ -1,5 +1,7 @@
 import React from "react";
 import Button from "../components/input/Button";
+import { stateCodes } from "../data/data";
+import Select from "../components/input/Select";
 
 const Profile = () => {
   const labelStyle = "flex gap-16 items-center my-8 [&>*]:text-primary-300";
@@ -36,27 +38,20 @@ const Profile = () => {
         >
           <label htmlFor="city" className={`${labelStyle}`}>
             <p className="font-medium">City</p>
-            <input
-              type="text"
-              name="city"
-              className={`${inputStyle}`}
-            />
+            <input type="text" name="city" className={`${inputStyle}`} />
           </label>
-          <label htmlFor="city" className={`${labelStyle} gap-6`}>
+          <label htmlFor="state" className={`${labelStyle} gap-6`}>
             <p className="font-medium">State</p>
-            <input
-              type="text"
-              name="city"
-              className={`${inputStyle}`}
+            <Select
+              name="states"
+              prompt="Select state"
+              data={stateCodes}
+              dark={false}
             />
           </label>
           <label htmlFor="city" className={`${labelStyle} gap-6`}>
             <p className="font-medium">Zip</p>
-            <input
-              type="text"
-              name="city"
-              className={`${inputStyle}`}
-            />
+            <input type="text" name="city" className={`${inputStyle}`} />
           </label>
         </div>
         <hr className="text-primary-300 border-primary-300 my-4" />

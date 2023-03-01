@@ -1,7 +1,7 @@
 import React from "react";
 
 const OrderHistory = () => {
-  const data = new Array(15).fill(0);
+  const data = new Array(8).fill(0);
 
   return (
     <>

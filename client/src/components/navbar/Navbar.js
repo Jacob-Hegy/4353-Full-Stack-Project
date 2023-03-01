@@ -56,7 +56,7 @@ const Navbar = ({ isTopOfPage }) => {
 
           <li>
             <NavLink
-              to="getquote"
+              to="quote"
               className="bg-primary-300 text-white py-2 px-3 rounded-md"
             >
               Get a Quote

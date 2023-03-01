@@ -15,9 +15,7 @@ const Footer = () => {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
             mollitia,molestiae quas vel sint commodi
           </p>
-          <button className="h-[40px] w-full bg-[#89CDFE] mt-5 rounded">
-            Get Quote
-          </button>
+          <Button dark={false} content="Get Quote"/>
         </div>
         <div>
           <h5 className="font-bold text-xl">Contact info</h5>

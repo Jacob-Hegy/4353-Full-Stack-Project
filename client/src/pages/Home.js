@@ -40,9 +40,7 @@ const Home = () => {
             } items-center gap-8 px-4`}
           >
             {/* Image Left */}
-
             {isAboveMediumScreens && (
-              // <div className="absolute -left-[3vw] top-[50%] -translate-y-[50%]">
               <div
                 className={`${
                   isBelowLargeScreens

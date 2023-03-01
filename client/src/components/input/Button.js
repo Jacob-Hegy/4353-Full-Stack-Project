@@ -12,7 +12,7 @@ const Button = ({ type, content, dark = true }) => {
       type={type}
       className={`${
         dark ? darkStyles : lightStyles
-      } duration-300 p-4 block w-full mt-12 rounded-md text-xl font-semibold`}
+      } duration-300 p-4 inline-block w-full mt-12 rounded-md text-xl font-semibold`}
     >
       {content}
     </button>

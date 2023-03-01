@@ -1,16 +1,20 @@
 import React from "react";
 import backgndImg1 from "../assets/Vector 1.svg";
 import backgndImg2 from "../assets/Vector 2.svg";
-import arrow from "../assets/Arrow.svg";
+import Button from "../components/input/Button";
+import { stateCodes } from "../data/data";
+import Select from "../components/input/Select";
 
 const Quote = () => {
   return (
-    <div className="flex w-full h-[calc(100vh-75px)] bg-[#384955] justify-center opacity-100">
-      <img src={backgndImg1} className="absolute w-full top-[33%] z-0"></img>
-      <img src={backgndImg2} className="absolute w-full top-[33%] z-0"></img>
-      <form className="w-[575px] h-[720px] bg-white m-auto font-bold opacity-100 rounded-lg drop-shadow-lg">
-        <div className="bg-[#384955] text-white text-center py-[18px]">
-          Fill in the form to receive a quote
+    <div className="flex w-full h-[calc(100vh-75px)] bg-primary-500 justify-center opacity-100 relative overflow-hidden">
+      <img src={backgndImg1} className="absolute w-full top-[33%] z-0" />
+      <img src={backgndImg2} className="absolute w-full top-[33%] z-0" />
+      <form className="w-[575px] h-[720px] bg-white m-auto font-bold opacity-100 rounded-lg drop-shadow-lg overflow-hidden">
+        <div className="bg-primary-300 text-white text-center py-[18px]">
+          <p className="text-lg font-semibold">
+            Fill in the form to receive a quote
+          </p>
         </div>
         <div className="px-[69px] py-[49px] grid grid-rows-4 gap-5">
           <div className="flex flex-col">
@@ -18,7 +22,7 @@ const Quote = () => {
             <input
               name="address"
               id="address"
-              className="h-12 px-3 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
+              className="p-2 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
             ></input>
           </div>
           <div>
@@ -30,13 +34,14 @@ const Quote = () => {
               <input
                 name="city"
                 id="city"
-                className="h-12 px-3 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
+                className="p-2 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
               ></input>
-              <option
-                name="state"
-                id="state"
-                className="h-12 px-3 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
-              ></option>
+              <Select
+                name="states"
+                prompt="Select state"
+                data={stateCodes}
+                dark={false}
+              />
             </div>
           </div>
 
@@ -49,12 +54,12 @@ const Quote = () => {
               <input
                 name="zipcode"
                 id="zipcode"
-                className="h-12 px-3 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
+                className="p-2 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
               ></input>
               <input
                 name="phone"
                 id="phone"
-                className="h-12 px-3 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
+                className="p-2 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
               ></input>
             </div>
           </div>
@@ -69,12 +74,12 @@ const Quote = () => {
                 name="date"
                 id="date"
                 type="date"
-                className="h-12 px-3 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
+                className="p-2 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
               ></input>
               <option
                 name="product"
                 id="product"
-                className="h-12 px-3 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
+                className="p-2 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
               ></option>
             </div>
           </div>
@@ -83,16 +88,11 @@ const Quote = () => {
             <input
               name="amount"
               id="amount"
-              className="h-12 px-3 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
+              className="p-2 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
             ></input>
           </div>
+          <Button type="submit" content="Submit" />
         </div>
-        <button
-          type="submit"
-          className="justify-center w-[197px] text-[20px] h-[57px] text-white bg-[#384955] rounded-lg ml-[69px]"
-        >
-          Submit
-        </button>
       </form>
     </div>
   );

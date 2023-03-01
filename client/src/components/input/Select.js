@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const Select = ({ name, prompt, data }) => {
+const Select = ({ name, prompt, data, dark = true }) => {
   const [list, setList] = useState([]);
   const [query, setQuery] = useState("");
   const [placeHolder, setPlaceHolder] = useState(prompt);
@@ -8,8 +8,14 @@ const Select = ({ name, prompt, data }) => {
   const [closed, setClosed] = useState(true);
   const openStyles = "max-h-[320px] overflow-y-auto";
   const closedStyles = `max-h-0 overflow-hidden p-0`;
-  const focusStyles =
+  const darkfocusStyles =
     "focus:bg-white focus:placeholder:text-primary-300 focus:text-primary-300 focus:uppercase focus:rounded-bl-none focus:rounded-br-none";
+  const lightfocusStyles =
+    "focus:bg-primary-300 focus:placeholder:text-white focus:text-white focus:uppercase focus:rounded-bl-none focus:rounded-br-none";
+  const darkStyles =
+    "bg-primary-300 hover:bg-white hover:text-primary-300 text-white placeholder:text-gray-200 hover:placeholder:text-primary-300 border-primary-300";
+  const lightStyles =
+    "bg-white hover:bg-primary-300 hover:text-white text-primary-300 placeholder:text-gray-400 hover:placeholder:text-white border-primary-300";
   const liStyles = `relative h-[40px] flex items-center cursor-pointer text-white bg-primary-300 hover:bg-white hover:text-primary-300 px-3 duration-300 ${
     closed && closedStyles
   }`;
@@ -63,8 +69,10 @@ const Select = ({ name, prompt, data }) => {
         type="text"
         value={query}
         onChange={handleChange}
-        className={`rounded-md hover:cursor-pointer bg-primary-300 hover:bg-white hover:text-primary-300 text-white placeholder:text-gray-200 hover:placeholder:text-primary-300 w-full h-10 py-2 px-3 duration-300 border-2 border-primary-300 ${
-          open ? focusStyles : ""
+        className={`rounded-md hover:cursor-pointer w-full h-10 py-2 px-3 duration-300 border-2 ${
+          dark ? darkStyles : lightStyles
+        } ${open && dark && darkfocusStyles} ${
+          open && !dark && lightfocusStyles
         }`}
         onFocus={handleFocus}
         onBlur={handleBlur}
