@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Quote from "./pages/Quote";
 import Profile from "./pages/Account";
+import { UseContextProvider } from "./context/UserContext";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,7 +27,11 @@ const router = createBrowserRouter(
 );
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <UseContextProvider>
+      <RouterProvider router={router} />
+    </UseContextProvider>
+  );
 }
 
 export default App;

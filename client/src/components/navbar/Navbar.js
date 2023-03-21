@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import Dropdown from "./Dropdown";
 import Logo from "../../assets/logo.svg";
 import useMediaQuery from "../../hooks/useMediaQuery";
+import { UserContext } from "../../context/UserContext";
+import axios from "axios";
 
 const Navbar = ({ isTopOfPage }) => {
-  const [isloggedIn, setIsLoggedIn] = useState(false);
+  const { user, setUser } = useContext(UserContext);
+  const { redirect, setRedirect } = useState(null);
   const [isMenuToggled, setIsMenuToggled] = useState(false);
   const isAboveMediumScreens = useMediaQuery("(min-width: 768px)");
   const navbarShadow = isTopOfPage ? "" : "drop-shadow";
+
+  async function logout() {
+    await axios.post("http://localhost:4000/auth/logout");
+    setRedirect("/");
+    setUser(null);
+  }
 
   return (
     <nav
@@ -33,7 +42,7 @@ const Navbar = ({ isTopOfPage }) => {
             <HashLink to="/#contactus">Contact Us</HashLink>
           </li>
 
-          {isloggedIn ? (
+          {user ? (
             <Dropdown
               label={"My Account"}
               isAboveMediumScreens={isAboveMediumScreens}
@@ -161,7 +170,7 @@ const Navbar = ({ isTopOfPage }) => {
               <NavLink to="contactus">Contact Us</NavLink>
             </li>
 
-            {isloggedIn ? (
+            {user ? (
               <>
                 <li>
                   <NavLink to="account" className={"flex gap-2 items-center"}>

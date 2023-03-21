@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="max-w-[200px] ">
         <img src={logo}></img>
       </div>
-      <div className="grid grid-cols-4 mt-3 gap-8">
+      <div className="grid grid-cols-3 md:grid-cols-4 mt-3 gap-8">
         <div className="max-w-[210px] ">
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime

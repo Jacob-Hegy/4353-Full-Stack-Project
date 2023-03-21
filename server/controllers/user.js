@@ -1,66 +1,40 @@
-// CREATE
-export const addTodo = async (req, res) => {
+import db from "../database.js";
+
+export const getUser = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { task, completed } = req.body;
-    const user = await User.findById(id);
-    const newTodo = new Todo({
-      userId: id,
-      task,
-      completed,
-    });
-    const savedTodo = await newTodo.save();
-    user.todos.push(savedTodo);
-    res.status(201).json(user.todos);
+    const { token } = req.cookies;
+
+    if (token) {
+      jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
+        if (err) throw err;
+        res.status(200).json(data[0]);
+      });
+    } else {
+      return res.json(null);
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-// READ
-export const getTodos = async (req, res) => {
+export const saveProfile = async (req, res) => {
   try {
     const { id } = req.params;
-    const todos = await Todo.find({ userId: id });
-    res.status(200).json(todos);
-  } catch (error) {
-    console.log(id);
-    res.send({
-      message:
-        error.message + `something is wrong with the id: ${id} in req params`,
-    });
-  }
-};
-
-// UPDATE
-export const updateTodo = async (req, res) => {
-  try {
-    const { id, todoId } = req.params;
-    const { task, completed } = req.body;
-    // const user = await User.findById(id);
-    const todo = await Todo.findOneAndUpdate(
-      { userId: id, _id: todoId },
-      { userId: id, task, completed },
-      {
-        new: true,
-        runValidators: true,
-        overwrite: true,
+    const { fullname, address, city, state, zip } = req.body;
+    db.query("SELECT * FROM user WHERE id = ?", [id], (err, data) => {
+      if (err) return res.status(500).json(err);
+      // user found
+      if (data.length) {
+        db.query(
+          "INSERT INTO client VALUES (?, ?, ?, ?, ?, ?)",
+          [id, fullname, address, city, state, zip],
+          (err, data) => {
+            if (err) return res.status(500).json(err);
+            return res.status(200).json(data[0]);
+          }
+        );
       }
-    );
-    res.status(200).json(todo);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
-
-// DELETE
-export const deleteTodo = async (req, res) => {
-  try {
-    const { id, todoId } = req.params;
-    await Todo.deleteOne({ userId: id, _id: todoId });
-    const todos = await Todo.find({ userId: id });
-    await User.findOneAndUpdate({_id: id}, {todos})
-    res.status(200).json(todos);
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

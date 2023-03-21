@@ -1,6 +1,6 @@
 import React from "react";
 
-const Button = ({ type, content, dark = true }) => {
+const Button = ({ type, content, dark = true, onClick }) => {
   const darkStyles =
     "bg-primary-300 text-white hover:bg-secondary-100 hover:text-primary-300";
 
@@ -13,6 +13,7 @@ const Button = ({ type, content, dark = true }) => {
       className={`${
         dark ? darkStyles : lightStyles
       } duration-300 p-4 inline-block w-full mt-12 rounded-md text-xl font-semibold`}
+      onClick={onClick}
     >
       {content}
     </button>
