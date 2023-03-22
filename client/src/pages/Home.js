@@ -7,8 +7,6 @@ import { stateCodes, products } from "../data/data";
 import useMediaQuery from "../hooks/useMediaQuery";
 import Footer from "../components/Footer.js";
 import ContactUs from "./ContactUs";
-import { UserContext } from "../context/UserContext";
-import { Navigate } from "react-router-dom";
 
 const Stat = ({ number, children }) => {
   return (
@@ -25,14 +23,8 @@ const Stat = ({ number, children }) => {
 };
 
 const Home = () => {
-  const { user, ready } = useContext(UserContext);
   const isAboveMediumScreens = useMediaQuery("(min-width: 768px)");
   const isBelowLargeScreens = useMediaQuery("(max-width: 1024px)");
-
-  // if user isnt logged in... send them to login page from Home
-  if (ready && !user) {
-    return <Navigate to={"/login"} />;
-  }
 
   return (
     <div>

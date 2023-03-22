@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import Profile from "./Profile";
+import React, { useState, useContext } from "react";
 import useMediaQuery from "../hooks/useMediaQuery";
-import OrderHistory from "./OrderHistory";
+import { Navigate, Outlet } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
+import { Link } from "react-router-dom";
 
 const TabBtn = ({
+  href,
   text,
   icon,
   active,
@@ -15,7 +17,8 @@ const TabBtn = ({
     setSelectedPage(text.toLowerCase());
   }
   return (
-    <button
+    <Link
+      to={href}
       className={`text-lg text-white block ${
         active && "bg-secondary-100/25"
       } p-4 w-full ${
@@ -24,17 +27,31 @@ const TabBtn = ({
       onClick={handleClick}
     >
       {icon} {isAboveLargeScreens && <p>{text}</p>}
-    </button>
+    </Link>
   );
 };
 
 const Account = () => {
+  const { user, ready } = useContext(UserContext);
   const [selectedPage, setSelectedPage] = useState("profile");
   const isAboveLargeScreens = useMediaQuery("(min-width: 1210px)");
+
+  if(!ready){
+    return <p>Loading...</p>;
+  }
+
+  // if user isnt logged in... send them to login page from Home
+  if (ready && !user) {
+    console.log("user not logged in in account page");
+    console.log(ready);
+    return <Navigate to={"/login"} />;
+  }
+
   return (
     <div className="h-[calc(100vh-75px)] flex">
       <div className="max-w-[250px] h-[calc(100vh-75px)] bg-primary-300 p-4 flex flex-col gap-4">
         <TabBtn
+          href={"./profile"}
           text={"Profile"}
           active={selectedPage === "profile" ? true : false}
           isAboveLargeScreens={isAboveLargeScreens}
@@ -57,6 +74,7 @@ const Account = () => {
           }
         />
         <TabBtn
+          href={"./history"}
           text={"Order History"}
           isAboveLargeScreens={isAboveLargeScreens}
           active={selectedPage === "order history" ? true : false}
@@ -86,7 +104,8 @@ const Account = () => {
         )}
       </div>
       <div className="w-full max-w-[1100px] px-11 pt-8 h-[calc(100vh-75px)]">
-        {selectedPage === "profile" ? <Profile /> : <OrderHistory />}
+        <Outlet />
+        {/* {selectedPage === "profile" ? <Profile /> : <OrderHistory />} */}
       </div>
     </div>
   );

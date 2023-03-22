@@ -10,18 +10,16 @@ export function UseContextProvider({ children }) {
   useEffect(() => {
     if (!user) {
       axios
-        .get("http://localhost:4000/user")
+        .get("/user")
         .then(({ data }) => {
           setUser(data);
           setReady(true);
         })
         .catch((err) => {
-          if (err.response.status < 200 || err.response.status >= 300) {
-            setUser(null);
-          }
+          console.log(err);
         });
     }
-  }, []);
+  }, [user]);
 
   return (
     <UserContext.Provider value={{ user, setUser, ready }}>

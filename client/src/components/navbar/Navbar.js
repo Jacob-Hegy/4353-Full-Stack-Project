@@ -14,10 +14,13 @@ const Navbar = ({ isTopOfPage }) => {
   const isAboveMediumScreens = useMediaQuery("(min-width: 768px)");
   const navbarShadow = isTopOfPage ? "" : "drop-shadow";
 
-  async function logout() {
-    await axios.post("http://localhost:4000/auth/logout");
-    setRedirect("/");
-    setUser(null);
+  async function handleLogOut() {
+    await axios.post("http://localhost:4000/auth/logout").then(res => {
+      if(res.data){
+        setRedirect("/");
+        setUser(null);
+      }
+    });
   }
 
   return (
@@ -54,7 +57,7 @@ const Navbar = ({ isTopOfPage }) => {
                 <NavLink to="quotes">Quotes</NavLink>
               </li>
               <li>
-                <NavLink to="login">Log out</NavLink>
+                <button onClick={handleLogOut}>Log out</button>
               </li>
             </Dropdown>
           ) : (

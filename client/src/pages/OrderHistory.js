@@ -22,8 +22,8 @@ const OrderHistory = () => {
             </tr>
           </thead>
           <tbody className="block w-full h-[600px] overflow-y-auto">
-            {data.map((entry) => (
-              <tr className="border-b-2 h-[50px]">
+            {data.map((entry, index) => (
+              <tr className="border-b-2 h-[50px]" key={index}>
                 <td></td>
                 <td></td>
                 <td></td>

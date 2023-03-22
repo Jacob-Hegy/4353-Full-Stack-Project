@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import backgndImg1 from "../assets/Vector 1.svg";
 import backgndImg2 from "../assets/Vector 2.svg";
 import Button from "../components/input/Button";
 import { stateCodes } from "../data/data";
 import Select from "../components/input/Select";
+import { UserContext } from "../context/UserContext";
+import { Navigate } from "react-router-dom";
 
 const Quote = () => {
+  const { user, ready } = useContext(UserContext);
+
+  if (!ready) return <p>Loading...</p>;
+
+  // if user isnt logged in... send them to login page from Home
+  if ((!ready && !user) || (ready && !user)) {
+    console.log("user not logged in in account page");
+    return <Navigate to={"/login"} />;
+  }
+
   return (
     <div className="flex w-full h-[calc(100vh-75px)] bg-primary-500 justify-center opacity-100 relative overflow-hidden">
-      <img src={backgndImg1} className="absolute w-full top-[33%] z-0" />
-      <img src={backgndImg2} className="absolute w-full top-[33%] z-0" />
+      <img src={backgndImg1} className="absolute w-full top-[33%] z-0" alt="" />
+      <img src={backgndImg2} className="absolute w-full top-[33%] z-0" alt="" />
       <form className="w-[575px] h-[720px] bg-white m-auto font-bold opacity-100 rounded-lg drop-shadow-lg overflow-hidden">
         <div className="bg-primary-300 text-white text-center py-[18px]">
           <p className="text-lg font-semibold">

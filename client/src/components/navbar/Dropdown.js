@@ -18,7 +18,7 @@ const Dropdown = ({ label, classes, children }) => {
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <NavLink to={"profile"}>
+      <NavLink to={"account"}>
         {label}
         <svg
           xmlns="http://www.w3.org/2000/svg"

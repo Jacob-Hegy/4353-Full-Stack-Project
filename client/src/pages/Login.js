@@ -1,14 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import LoginImg from "../assets/user-login.svg";
 import Button from "../components/input/Button.js";
 import useMediaQuery from "../hooks/useMediaQuery";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
 const Login = () => {
-  const { setUser } = useContext(UserContext);
-  const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
+  const [redirect, setRedirect] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const isAboveMediumScreens = useMediaQuery("(min-width: 768px)");
@@ -17,18 +17,23 @@ const Login = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:4000/auth/login", {
+      const res = await axios.post("auth/login", {
         username,
         password,
       });
       if (res.status === 200) {
         setUser(res.data);
-        navigate("/account");
+        setRedirect(true);
       }
     } catch (error) {
       console.log(error);
       alert("login failed. Invalid credentials");
     }
+  }
+
+  if (redirect) {
+    console.log(user);
+    return <Navigate to={"/account"} />;
   }
 
   return (
