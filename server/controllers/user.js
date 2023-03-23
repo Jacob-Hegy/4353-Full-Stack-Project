@@ -28,14 +28,14 @@ export const getUser = async (req, res) => {
 export const saveProfile = async (req, res) => {
   try {
     const { id } = req.params;
-    const { fullname, address, city, state, zip } = req.body;
-    db.query("SELECT * FROM user WHERE id = ?", [id], (err, data) => {
+    const { fullname, address1, address2, city, state, zip } = req.body;
+    db.query("SELECT * FROM UserCredentials WHERE ID = ?", [id], (err, data) => {
       if (err) return res.status(500).json(err);
       // user found
       if (data.length) {
         db.query(
-          "INSERT INTO client VALUES (?, ?, ?, ?, ?, ?)",
-          [id, fullname, address, city, state, zip],
+          "UPDATE ClientInformation SET Name = ?, Address1 = ?, Address2 = ?, City = ?, State = ?, ZipCode = ? WHERE ID = ?",
+          [fullname, address1, address2, city, state, zip, id],
           (err, data) => {
             if (err) return res.status(500).json(err);
             return res.status(200).json(data[0]);

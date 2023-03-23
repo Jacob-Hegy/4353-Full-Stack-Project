@@ -5,7 +5,8 @@ import db from "../database.js";
 // REGISTER USER
 export const register = async (req, res) => {
   const { username, password } = req.body;
-  const salt = bcrypt.genSaltSync(10);
+  if (username.length > 256) { return res.status(409).json({msg: "Username too long" }); }
+  const salt = bcrypt.genSaltSync(1000);
   const passwordHash = bcrypt.hashSync(password, salt);
 
   try {
