@@ -6,33 +6,28 @@ import db from "../database.js";
 export const register = async (req, res) => {
   const { username, password } = req.body;
   if (username.length > 256) { return res.status(409).json({msg: "Username too long" }); }
-  const salt = bcrypt.genSaltSync(1000);
+  const salt = bcrypt.genSaltSync(10);
   const passwordHash = bcrypt.hashSync(password, salt);
-
   try {
-    db.query("SELECT * FROM user WHERE id = ?", [username])
+    db.query("SELECT * FROM UserCredentials WHERE ID = ?", [username])
       .then((data) => {
+        console.log("here2");
         if (data[0].length) return res.status(409).json("User already exists.");
-
-        db.query("INSERT INTO user VALUES (?, ?)", [
+        db.query("INSERT INTO UserCredentials VALUES (?, ?)", [
           username,
           passwordHash,
         ]).then((data) => {
-          db.query("SELECT * FROM user WHERE id=?", [username]).then((data) => {
-            const newUserData = data[0][0];
-            db.query("INSERT INTO client (userID) VALUES (?)", [
-              newUserData.id,
+          console.log("here3");
+          db.query("INSERT INTO ClientInformation (ID) VALUES (?)", [
+            username,
             ]).then((data) => {
-              console.log(newUserData);
-              db.query("SELECT * FROM client WHERE userID=?", [
-                newUserData.id,
+              db.query("SELECT * FROM ClientInformation WHERE ID = ?", [
+                username,
               ]).then((data) => {
                 console.log(data);
-                const userData = data[0];
-                res.status(201).json(userData);
+                res.status(201).json(username);
               });
             });
-          });
         });
       })
       .catch((err) => {
@@ -48,16 +43,13 @@ export const register = async (req, res) => {
 
 // LOGGIN IN
 export const login = async (req, res) => {
+  const {username, password} = req.body;
   try {
-    db.query("SELECT * FROM user WHERE id = ?", [req.body.username]).then(
+    db.query("SELECT * FROM UserCredentials WHERE ID = ?", [username]).then(
       (data) => {
         if (data[0].length === 0)
           return res.status(404).json({ msg: "User not found." });
-
-        const isMatch = bcrypt.compareSync(
-          req.body.password,
-          data[0][0].password
-        );
+        const isMatch = bcrypt.compareSync(password, data[0][0].Password);
 
         if (!isMatch)
           return res.status(400).json({ msg: "Invalid credentials." });
@@ -65,7 +57,7 @@ export const login = async (req, res) => {
         const token = jwt.sign({ id: data[0][0].id }, process.env.JWT_SECRET, {
           expiresIn: "1h",
         });
-        db.query("SELECT * FROM client WHERE userID=?", [data[0][0].id])
+        db.query("SELECT * FROM ClientInformation WHERE ID = ?", [data[0][0].ID])
           .then((data) => {
             res
               .cookie("token", token, { httpOnly: true })
