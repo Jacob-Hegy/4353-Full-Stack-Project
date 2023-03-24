@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const Select = ({ name, prompt, data, dark = true }) => {
+const Select = ({ name, prompt, data, query, setQuery, dark = true }) => {
   const [list, setList] = useState([]);
-  const [query, setQuery] = useState("");
   const [placeHolder, setPlaceHolder] = useState(prompt);
   const [open, setOpen] = useState(false);
   const [closed, setClosed] = useState(true);

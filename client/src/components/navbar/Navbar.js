@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import Dropdown from "./Dropdown";
 import Logo from "../../assets/logo.svg";
@@ -9,16 +9,16 @@ import axios from "axios";
 
 const Navbar = ({ isTopOfPage }) => {
   const { user, setUser } = useContext(UserContext);
-  const { redirect, setRedirect } = useState(null);
   const [isMenuToggled, setIsMenuToggled] = useState(false);
+  const navigate = useNavigate();
   const isAboveMediumScreens = useMediaQuery("(min-width: 768px)");
   const navbarShadow = isTopOfPage ? "" : "drop-shadow";
 
   async function handleLogOut() {
-    await axios.post("http://localhost:4000/auth/logout").then(res => {
-      if(res.data){
-        setRedirect("/");
+    await axios.post("auth/logout").then((res) => {
+      if (res.data) {
         setUser(null);
+        navigate("/");
       }
     });
   }

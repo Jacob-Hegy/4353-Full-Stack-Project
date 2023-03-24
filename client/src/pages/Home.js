@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import gasStation from "../assets/gas-station.svg";
 import aboutImg from "../assets/about-img.svg";
 import Button from "../components/input/Button";
@@ -25,6 +25,7 @@ const Stat = ({ number, children }) => {
 const Home = () => {
   const isAboveMediumScreens = useMediaQuery("(min-width: 768px)");
   const isBelowLargeScreens = useMediaQuery("(max-width: 1024px)");
+  const [stateQuery, setStateQuery] = useState("");
 
   return (
     <div>
@@ -65,21 +66,15 @@ const Home = () => {
               <p className="text-center mb-7">
                 Getting a fuel quote has never been easier
               </p>
-              <div className="grid grid-cols-2 gap-8 [&>label>p]:font-semibold">
+              <div className="[&>label>p]:font-semibold">
                 <label htmlFor="states">
                   <p className="mb-4">LOCATION</p>
                   <Select
                     name="states"
                     prompt="Select state"
+                    query={stateQuery}
+                    setQuery={setStateQuery}
                     data={stateCodes}
-                  />
-                </label>
-                <label htmlFor="products">
-                  <p className="mb-4">PRODUCT</p>
-                  <Select
-                    name="products"
-                    prompt={"Select product"}
-                    data={products}
                   />
                 </label>
               </div>

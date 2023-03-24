@@ -12,11 +12,14 @@ export function UseContextProvider({ children }) {
       axios
         .get("/user")
         .then(({ data }) => {
+          console.log(data);
           setUser(data);
           setReady(true);
         })
         .catch((err) => {
           console.log(err);
+          // alert(err.response)
+          setReady(true)
         });
     }
   }, [user]);

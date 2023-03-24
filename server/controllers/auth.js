@@ -11,13 +11,11 @@ export const register = async (req, res) => {
   try {
     db.query("SELECT * FROM UserCredentials WHERE ID = ?", [username])
       .then((data) => {
-        console.log("here2");
         if (data[0].length) return res.status(409).json("User already exists.");
         db.query("INSERT INTO UserCredentials VALUES (?, ?)", [
           username,
           passwordHash,
         ]).then((data) => {
-          console.log("here3");
           db.query("INSERT INTO ClientInformation (ID) VALUES (?)", [
             username,
             ]).then((data) => {
@@ -54,9 +52,10 @@ export const login = async (req, res) => {
         if (!isMatch)
           return res.status(400).json({ msg: "Invalid credentials." });
 
-        const token = jwt.sign({ id: data[0][0].id }, process.env.JWT_SECRET, {
+        const token = jwt.sign({ id: data[0][0].ID }, process.env.JWT_SECRET, {
           expiresIn: "1h",
         });
+
         db.query("SELECT * FROM ClientInformation WHERE ID = ?", [data[0][0].ID])
           .then((data) => {
             res
@@ -66,7 +65,6 @@ export const login = async (req, res) => {
           })
           .catch((err) => {
             console.log(err);
-            console.log("the error happened in the find client query");
             res.status(500).json(err);
           });
       }
