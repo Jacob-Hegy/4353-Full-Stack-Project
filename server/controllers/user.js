@@ -31,11 +31,8 @@ export const saveProfile = async (req, res) => {
     const { id } = req.params;
     const { id2, fullname, address1, address2, city, state, zip } = req.body;
 
-    db.query(
-      "SELECT * FROM UserCredentials WHERE ID = ?",
-      [id],
-      (err, data) => {
-        if (err) return res.status(500).json(err);
+    db.query("SELECT * FROM ClientInformation WHERE ID = ?", [id])
+      .then((data) => {
         console.log(data);
         // user found
         if (data.length) {
@@ -49,24 +46,34 @@ export const saveProfile = async (req, res) => {
               stateList[state.toLowerCase()],
               zip,
               id,
-            ],
-            (err, data) => {
-              if (err) return res.status(500).json(err);
-            }
-          );
+            ]
+          ).catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+          });
         }
         if (id2.length) {
-          db.query(
-            "UPDATE UserCredentials SET ID = ? WHERE ID = ?",
-            [id2, id],
-            (err, data) => {
-              if (err) return res.status(500).json(err);
-              return res.status(200).json(data[0]);
-            }
-          );
+          db.query("UPDATE UserCredentials SET ID = ? WHERE ID = ?", [
+            id2,
+            id,
+          ]).catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+          });
+          db.query("SELECT * FROM ClientInformation WHERE ID = ?", [id2])
+            .then((data) => {
+              console.log(data[0]);
+              res.status(200).json(data[0]);
+            })
+            .catch((err) => {
+              console.log(res.status(500).json(err));
+            });
         } else return res.status(200).json(data[0]);
-      }
-    );
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
