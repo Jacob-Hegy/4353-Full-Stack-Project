@@ -31,7 +31,6 @@ app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 app.use("/quote", quoteRoutes);
 
-/* TESTING DB CONNECTION */
-
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Express server running on port ${PORT}`));
+export default app;
+// const PORT = process.env.PORT || 3001;
+// app.listen(PORT, () => console.log(`Express server running on port ${PORT}`));
