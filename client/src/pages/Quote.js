@@ -11,7 +11,6 @@ import Modal from "../components/modal/Modal";
 
 const Quote = () => {
   const { user, ready } = useContext(UserContext);
-  // const [username, setUsername] = useState(user.ID);
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
   const [city, setCity] = useState("");
@@ -44,23 +43,34 @@ const Quote = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(`quote/${user.ID}/addQuote`, {
-        address:
-          address1 +
-          " " +
-          address2 +
-          " " +
-          city +
-          ", " +
-          twoLetterStateList[stateQuery.toLowerCase()] +
-          " " +
-          zip.toString(),
-        date,
-        gals: galAmount,
-      });
-      console.log(res);
-      setPrice(res.data.price);
-      setShowPriceModule(true);
+      if (
+        address1.length > 0 &&
+        city.length > 0 &&
+        stateQuery.length > 0 &&
+        zip > 0 &&
+        date.length > 0 &&
+        galAmount > 0
+      ) {
+        const res = await axios.post(`quote/${user.ID}/addQuote`, {
+          address:
+            address1 +
+            " " +
+            address2 +
+            " " +
+            city +
+            ", " +
+            twoLetterStateList[stateQuery.toLowerCase()] +
+            " " +
+            zip.toString(),
+          date,
+          gals: galAmount,
+        });
+        console.log(res);
+        setPrice(res.data.price);
+        setShowPriceModule(true);
+      } else {
+        alert("Some information is missing in the form!");
+      }
     } catch (error) {
       console.log(error);
       alert("Something went wrong...");
@@ -163,7 +173,10 @@ const Quote = () => {
       {showPriceModule && (
         <Modal>
           <div className="w-80 h-40 bg-white flex flex-col justify-center items-center rounded-md text-center relative">
-            <button className="absolute top-0 right-0 p-2" onClick={() => setShowPriceModule(false)}>
+            <button
+              className="absolute top-0 right-0 p-2"
+              onClick={() => setShowPriceModule(false)}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

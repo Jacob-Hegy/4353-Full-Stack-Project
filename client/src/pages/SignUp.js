@@ -16,12 +16,20 @@ const SignUp = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      const res = await axios.post("/auth/register", {
-        username,
-        password,
-      });
-      if (res.status === 201) {
-        return navigate("/login", { replace: true });
+      if (username.length > 0 && password.length > 0) {
+        if (confirmPassword === password) {
+          const res = await axios.post("/auth/register", {
+            username,
+            password,
+          });
+          if (res.status === 201) {
+            return navigate("/login", { replace: true });
+          }
+        } else {
+          alert("password not equal to confirm password");
+        }
+      } else {
+        alert("username or password not long enough");
       }
     } catch (error) {
       console.log(error);
