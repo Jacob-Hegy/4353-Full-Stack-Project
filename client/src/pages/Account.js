@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import useMediaQuery from "../hooks/useMediaQuery";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import { Link } from "react-router-dom";
 
@@ -13,8 +13,11 @@ const TabBtn = ({
   setSelectedPage,
 }) => {
   function handleClick() {
-    console.log(text);
-    setSelectedPage(text.toLowerCase());
+    if (text.toLowerCase().contains("profile")) {
+      setSelectedPage("profile");
+    } else {
+      setSelectedPage("quotes");
+    }
   }
   return (
     <Link
@@ -33,10 +36,19 @@ const TabBtn = ({
 
 const Account = () => {
   const { user, ready } = useContext(UserContext);
+  const location = useLocation();
   const [selectedPage, setSelectedPage] = useState("profile");
   const isAboveLargeScreens = useMediaQuery("(min-width: 1210px)");
 
-  if(!ready){
+  useEffect(() => {
+    if (location.pathname.split("/").at(-1) === "account") {
+      setSelectedPage("profile");
+    } else {
+      setSelectedPage(location.pathname.split("/").at(-1));
+    }
+  }, [location.pathname]);
+
+  if (!ready) {
     return <p>Loading...</p>;
   }
 
@@ -74,10 +86,10 @@ const Account = () => {
           }
         />
         <TabBtn
-          href={"./history"}
+          href={"./quotes"}
           text={"Order History"}
           isAboveLargeScreens={isAboveLargeScreens}
-          active={selectedPage === "order history" ? true : false}
+          active={selectedPage === "quotes" ? true : false}
           setSelectedPage={setSelectedPage}
           icon={
             <svg

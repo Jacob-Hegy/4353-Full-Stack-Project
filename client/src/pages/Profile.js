@@ -1,10 +1,9 @@
 import React, { useState, useContext } from "react";
 import Button from "../components/input/Button";
-import { stateCodes } from "../data/data";
+import { stateCodes, stateListReverse } from "../data/data";
 import Select from "../components/input/Select";
 import { UserContext } from "../context/UserContext";
 import axios from "axios";
-import Modal from "../components/modal/Modal";
 
 const Profile = () => {
   const { user, setUser } = useContext(UserContext);
@@ -13,17 +12,17 @@ const Profile = () => {
   const [address1, setAddress1] = useState(user.Address1);
   const [address2, setAddress2] = useState(user.Address2);
   const [city, setCity] = useState(user.City);
-  const [stateQuery, setStateQuery] = useState(user.State);
+  const [stateQuery, setStateQuery] = useState(stateListReverse[user.State]);
   const [zip, setZip] = useState(user.ZipCode);
 
   const labelStyle = "flex gap-16 items-center my-8 [&>*]:text-primary-300";
   const inputStyle = "border-2 border-gray-300 p-2 w-[50%] rounded-lg";
 
-  async function saveProfile(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     try {
       // if there is actuall content in the form then do
-      const submit =  window.confirm("Are you sure?")
+      const submit = window.confirm("Are you sure?");
       if (submit) {
         if (
           username.length > 0 &&
@@ -44,6 +43,7 @@ const Profile = () => {
           });
           if (res.status === 200) {
             setUser(res.data);
+            console.log("Yay success");
           }
         }
       }
@@ -58,7 +58,7 @@ const Profile = () => {
       <h1 className="text-2xl font-medium mb-2 text-primary-300">Profile</h1>
       <p className="text-primary-200 mb-6">Update your personal details here</p>
       <hr className="text-primary-300 border-primary-300 my-4" />
-      <form action="" onSubmit={saveProfile}>
+      <form action="" onSubmit={handleSubmit}>
         <label htmlFor="username" className={labelStyle}>
           <p className="font-medium">Username</p>
           <input

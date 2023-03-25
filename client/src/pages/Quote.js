@@ -1,14 +1,34 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import backgndImg1 from "../assets/Vector 1.svg";
 import backgndImg2 from "../assets/Vector 2.svg";
 import Button from "../components/input/Button";
-import { stateCodes } from "../data/data";
+import { stateCodes, twoLetterStateList, stateListReverse } from "../data/data";
 import Select from "../components/input/Select";
 import { UserContext } from "../context/UserContext";
 import { Navigate } from "react-router-dom";
+import axios from "axios";
 
 const Quote = () => {
   const { user, ready } = useContext(UserContext);
+  // const [username, setUsername] = useState(user.ID);
+  const [address1, setAddress1] = useState("");
+  const [address2, setAddress2] = useState("");
+  const [city, setCity] = useState("");
+  const [stateQuery, setStateQuery] = useState("");
+  const [zip, setZip] = useState("");
+  const [date, setDate] = useState("");
+  const [galAmount, setGalAmount] = useState("");
+  const [showPriceModule, setShowPriceModule] = useState(false);
+
+  useEffect(() => {
+    if (ready && user) {
+      setAddress1(user.Address1);
+      setAddress2(user.Address2);
+      setCity(user.City);
+      setStateQuery(stateListReverse[user.State]);
+      setZip(user.ZipCode);
+    }
+  }, [user]);
 
   if (!ready) return <p>Loading...</p>;
 
@@ -18,11 +38,35 @@ const Quote = () => {
     return <Navigate to={"/login"} />;
   }
 
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post(`quote/${user.ID}/addQuote`, {
+        address:
+          address1 +
+          " " +
+          address2 +
+          " " +
+          city +
+          ", " +
+          twoLetterStateList[stateQuery.toLowerCase()] +
+          " " +
+          zip.toString(),
+        date,
+        gals: galAmount,
+      });
+    } catch (error) {
+      console.log(error);
+      alert("Something went wrong...");
+    }
+  }
+
   return (
     <div className="flex w-full h-[calc(100vh-75px)] bg-primary-500 justify-center opacity-100 relative overflow-hidden">
       <img src={backgndImg1} className="absolute w-full top-[33%] z-0" alt="" />
       <img src={backgndImg2} className="absolute w-full top-[33%] z-0" alt="" />
-      <form className="w-[575px] h-[720px] bg-white m-auto font-bold opacity-100 rounded-lg drop-shadow-lg overflow-hidden">
+      <form className="w-[575px] bg-white m-auto font-bold opacity-100 rounded-lg drop-shadow-lg overflow-hidden" onSubmit={handleSubmit}>
         <div className="bg-primary-300 text-white text-center py-[18px]">
           <p className="text-lg font-semibold">
             Fill in the form to receive a quote
@@ -30,12 +74,24 @@ const Quote = () => {
         </div>
         <div className="px-[69px] py-[49px] grid grid-rows-4 gap-5">
           <div className="flex flex-col">
-            <label htmlFor="address">Street Address</label>
+            <label htmlFor="address1">Address 1</label>
             <input
-              name="address"
-              id="address"
+              name="address1"
+              id="address1"
               className="p-2 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
-            ></input>
+              value={address1}
+              onChange={(e) => setAddress1(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="address2">Address 2</label>
+            <input
+              name="address2"
+              id="address2"
+              className="p-2 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
+              value={address2}
+              onChange={(e) => setAddress2(e.target.value)}
+            />
           </div>
           <div>
             <div className="grid grid-cols-2 gap-5">
@@ -47,10 +103,14 @@ const Quote = () => {
                 name="city"
                 id="city"
                 className="p-2 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
-              ></input>
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              />
               <Select
                 name="states"
                 prompt="Select state"
+                query={stateQuery}
+                setQuery={setStateQuery}
                 data={stateCodes}
                 dark={false}
               />
@@ -60,48 +120,34 @@ const Quote = () => {
           <div>
             <div className="grid grid-cols-2 gap-5">
               <label htmlFor="zipcode">Zip Code</label>
-              <label htmlFor="phone">Phone Number</label>
+              <label htmlFor="date">Delivery Date</label>
             </div>
             <div className="grid grid-cols-2 gap-5">
               <input
                 name="zipcode"
                 id="zipcode"
                 className="p-2 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
-              ></input>
-              <input
-                name="phone"
-                id="phone"
-                className="p-2 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
-              ></input>
-            </div>
-          </div>
-
-          <div>
-            <div className="grid grid-cols-2 gap-5">
-              <label htmlFor="date">Delivery Date</label>
-              <label htmlFor="product">Product Type</label>
-            </div>
-            <div className="grid grid-cols-2 gap-5">
+                value={zip}
+                onChange={(e) => setZip(e.target.value)}
+              />
               <input
                 name="date"
                 id="date"
                 type="date"
                 className="p-2 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
-              ></input>
-              <option
-                name="product"
-                id="product"
-                className="p-2 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
-              ></option>
+                onChange={(e) => setDate(e.target.value)}
+              />
             </div>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col -mb-8">
             <label htmlFor="amount">Product Amount (gallons)</label>
             <input
               name="amount"
               id="amount"
               className="p-2 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
-            ></input>
+              value={galAmount}
+              onChange={(e) => setGalAmount(e.target.value)}
+            />
           </div>
           <Button type="submit" content="Submit" />
         </div>

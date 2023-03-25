@@ -54,7 +54,7 @@ const Navbar = ({ isTopOfPage }) => {
                 <NavLink to="account">Profile</NavLink>
               </li>
               <li>
-                <NavLink to="quotes">Quotes</NavLink>
+                <NavLink to="/account/quotes">Quotes</NavLink>
               </li>
               <li>
                 <button onClick={handleLogOut}>Log out</button>
