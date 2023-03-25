@@ -13,7 +13,6 @@ export const getUser = async (req, res) => {
           console.log(err);
           res.status(403).json(null);
         }
-        console.log(user);
         db.query("SELECT * from ClientInformation WHERE ID = ?", [user.id])
           .then((data) => res.status(200).json(data[0][0]))
           .catch((err) => res.status(500).json(err));

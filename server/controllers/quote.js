@@ -1,7 +1,10 @@
+import db from "../database.js";
+
 export const addQuote = async (req, res) => {
   try {
     const { id } = req.params;
     const { address, date, gals } = req.body;
+    console.log(date);
     db.query("SELECT * FROM UserCredentials WHERE id = ?", [id])
       .then((data) => {
         if (data.length) {
@@ -11,8 +14,8 @@ export const addQuote = async (req, res) => {
             "INSERT INTO FuelQuotes (ID, GallonsRequested, SuggestedPrice, DeliveryAddress, DeliveryDate, Total) VALUES (?, ?, ?, ?, ?, ?)", // DeliveryDate is currently set as data type "Date"; check functionality
             [id, gals, price, address, date, total]
           )
-            .then((data) => {
-              res.status(200).json(data[0]);
+            .then((data) => {              
+              res.status(200).json({price});
             })
             .catch((err) => {
               console.log(err);

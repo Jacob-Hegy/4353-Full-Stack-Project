@@ -7,6 +7,7 @@ import Select from "../components/input/Select";
 import { UserContext } from "../context/UserContext";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
+import Modal from "../components/modal/Modal";
 
 const Quote = () => {
   const { user, ready } = useContext(UserContext);
@@ -18,6 +19,7 @@ const Quote = () => {
   const [zip, setZip] = useState("");
   const [date, setDate] = useState("");
   const [galAmount, setGalAmount] = useState("");
+  const [price, setPrice] = useState("");
   const [showPriceModule, setShowPriceModule] = useState(false);
 
   useEffect(() => {
@@ -56,6 +58,9 @@ const Quote = () => {
         date,
         gals: galAmount,
       });
+      console.log(res);
+      setPrice(res.data.price);
+      setShowPriceModule(true);
     } catch (error) {
       console.log(error);
       alert("Something went wrong...");
@@ -66,7 +71,10 @@ const Quote = () => {
     <div className="flex w-full h-[calc(100vh-75px)] bg-primary-500 justify-center opacity-100 relative overflow-hidden">
       <img src={backgndImg1} className="absolute w-full top-[33%] z-0" alt="" />
       <img src={backgndImg2} className="absolute w-full top-[33%] z-0" alt="" />
-      <form className="w-[575px] bg-white m-auto font-bold opacity-100 rounded-lg drop-shadow-lg overflow-hidden" onSubmit={handleSubmit}>
+      <form
+        className="w-[575px] bg-white m-auto font-bold opacity-100 rounded-lg drop-shadow-lg overflow-hidden"
+        onSubmit={handleSubmit}
+      >
         <div className="bg-primary-300 text-white text-center py-[18px]">
           <p className="text-lg font-semibold">
             Fill in the form to receive a quote
@@ -152,6 +160,32 @@ const Quote = () => {
           <Button type="submit" content="Submit" />
         </div>
       </form>
+      {showPriceModule && (
+        <Modal>
+          <div className="w-80 h-40 bg-white flex flex-col justify-center items-center rounded-md text-center relative">
+            <button className="absolute top-0 right-0 p-2" onClick={() => setShowPriceModule(false)}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            <h3 className="text-2xl font-bold mb-4">
+              Thank you for your purchase
+            </h3>
+            <p className="text-xl">The total price is: ${price}</p>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };
