@@ -12,8 +12,7 @@ const Footer = () => {
       <div className="grid grid-cols-3 md:grid-cols-4 mt-3 gap-8">
         <div className="max-w-[210px] ">
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-            mollitia,molestiae quas vel sint commodi
+            Tetra is a fuel delivery company, we offer eco-friendly fuel options to help reduce our carbon footprint and protect the environment. 
           </p>
           <Button dark={false} content="Get Quote"/>
         </div>
@@ -25,7 +24,7 @@ const Footer = () => {
             StreetRowlett, TX 75088
           </p>
           <p className="py-1">(856) 342-8875</p>
-          <p>buisness@gmail.com</p>
+          <p>tetrafuel@gmail.com</p>
         </div>
         <div>
           <h5 className="font-bold text-xl">Quick Links</h5>

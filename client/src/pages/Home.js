@@ -8,14 +8,16 @@ import useMediaQuery from "../hooks/useMediaQuery";
 import Footer from "../components/Footer.js";
 import ContactUs from "./ContactUs";
 
-const Stat = ({ number, children }) => {
+const Stat = ({ number, icon, children }) => {
   return (
     <div className="justify-self-center">
       <div className="flex items-center space-x-4 mb-4">
-        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#89CDFE]"></div>
+        <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#89CDFE] text-center">
+          <div class={`fa-solid w-12 h-12 ${icon} leading-[48px] text-white text-xl`}></div>
+        </div>
         <p className="text-[20px] font-bold">{number}</p>
       </div>
-      <div className="max-w-[200px]">
+      <div className="max-w-[200px] text-xl">
         <p>{children}</p>
       </div>
     </div>
@@ -88,25 +90,21 @@ const Home = () => {
 
       <section
         id="Stats-section"
-        className={`grid ${
+        className={`grid items-center ${
           isAboveMediumScreens ? "grid-cols-4 h-[325px]" : "grid-rows-4"
         } justify-center gap-4 px-[8vw] pb-8`}
       >
-        <Stat number={3258}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-          mollitia, molestiae quas vel sint commodi
+        <Stat number={2000} icon={'fa-users'}>
+          Regular customers served across the United States.
         </Stat>
-        <Stat number={3258}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-          mollitia, molestiae quas vel sint commodi
+        <Stat number={100000} icon={'fa-stopwatch'}>
+          Gallons delivered on time with the best value & quality.
         </Stat>
-        <Stat number={3258}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-          mollitia, molestiae quas vel sint commodi
+        <Stat number={3258} icon={'fa-gas-pump'}>
+          Gallons of fuel saved by our efficient delivery routes!
         </Stat>
-        <Stat number={3258}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-          mollitia, molestiae quas vel sint commodi
+        <Stat number={100} icon={'fa-truck'}>
+          Delivery trucks on the road everyday for faster service!
         </Stat>
       </section>
 
@@ -135,8 +133,7 @@ const Home = () => {
                     <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[#89CDFE] mt-2"></div>
                     <div className="flex-1 min-w-0">
                       <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Maxime mollitia, molestiae quas vel sint commodi
+                        Our mission is to provide reliable and affordable fuel delivery services to homes, businesses, and organizations across the region.
                       </p>
                     </div>
                   </div>
@@ -146,8 +143,7 @@ const Home = () => {
                     <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[#89CDFE] mt-2"></div>
                     <div className="flex-1 min-w-0">
                       <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Maxime mollitia, molestiae quas vel sint commodi
+                        We are dedicated to delivering fuel solutions that are both sustainable and cost-effective.
                       </p>
                     </div>
                   </div>
@@ -157,8 +153,7 @@ const Home = () => {
                     <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[#89CDFE] mt-2"></div>
                     <div className="flex-1 min-w-0">
                       <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Maxime mollitia, molestiae quas vel sint commodi
+                        As a responsible company, we also offer eco-friendly fuel options to help reduce our carbon footprint and protect the environment. 
                       </p>
                     </div>
                   </div>
