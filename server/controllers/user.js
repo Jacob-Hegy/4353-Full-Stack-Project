@@ -34,12 +34,12 @@ export const saveProfile = async (req, res) => {
       .then((data) => {
         console.log(data);
         // user found
-        if(id2.length > 256) { res.status(403).json({msg: "ID too long" }); }
-        if(fullname.length > 50) { res.status(403).json({msg: "Name too long" }); }
-        if(address1.length > 100) { res.status(403).json({msg: "Address 1 too long" }); }
-        if(address2.length > 100) { res.status(403).json({msg: "Address 2 too long" }); }
-        if(city.length > 100) { res.status(403).json({msg: "City name too long" }); }
-        if(!(state.toLowerCase() in stateList)) { res.status(403).json({msg: "Input a valid state" }); }
+        if(id2.length > 256) { res.status(400).json({msg: "ID too long" }); }
+        if(fullname.length > 50) { res.status(400).json({msg: "Name too long" }); }
+        if(address1.length > 100) { res.status(400).json({msg: "Address 1 too long" }); }
+        if(address2.length > 100) { res.status(400).json({msg: "Address 2 too long" }); }
+        if(city.length > 100) { res.status(400).json({msg: "City name too long" }); }
+        if(!(state.toLowerCase() in stateList)) { res.status(400).json({msg: "Input a valid state" }); }
         // if(zip.length > 10) { res.status(403).json({msg: "Zipcode too long" }); } <-- Fuck this one in particular
         if (data.length) {
           db.query(

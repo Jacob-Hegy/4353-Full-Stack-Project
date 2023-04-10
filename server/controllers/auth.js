@@ -76,7 +76,7 @@ export const login = async (req, res) => {
   }
 };
 
-// LOGGIN IN
+// LOGGIN OUT
 export const logout = async (req, res) => {
   res.cookie("token", "").json(true);
 }
