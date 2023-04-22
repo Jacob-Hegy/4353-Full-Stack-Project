@@ -5,15 +5,19 @@ export const addQuote = async (req, res) => {
     const { id } = req.params;
     const { address, date, gals } = req.body;
     console.log(date);
-    db.query("SELECT * FROM UserCredentials WHERE id = ?", [id])
+    db.query("SELECT * FROM ClientInformation WHERE id = ?", [id])
       .then((data) => {
         if (data.length) {
-          let price = gals * 3.98;
-          let total = 5000;
-          db.query(
-            "INSERT INTO FuelQuotes (ID, GallonsRequested, SuggestedPrice, DeliveryAddress, DeliveryDate, Total) VALUES (?, ?, ?, ?, ?, ?)", // DeliveryDate is currently set as data type "Date"; check functionality
-            [id, gals, price, address, date, total]
-          )
+          let ppG = 1.50;
+          var locale = (data[0][0].State == 'TX') ? .02 : .04;
+          db.query("SELECT COUNT(*) AS count FROM FuelQuotes WHERE ID = ?", [id])
+          .then((data) => {
+            let hist = data[0][0].count;
+            let galsReq = (gals > 1000) ? .02 : .03;
+            let margin = (locale - (.01 * (hist > 0)) + galsReq + .1) * ppG;
+            let suggestedPrice = margin + ppG;
+            var price = gals * suggestedPrice;
+            db.query("INSERT INTO FuelQuotes (ID, GallonsRequested, SuggestedPrice, DeliveryAddress, DeliveryDate, Total) VALUES (?, ?, ?, ?, ?, ?)", [id, gals, suggestedPrice, address, date, price])
             .then((data) => {              
               res.status(200).json({price});
             })
@@ -21,6 +25,11 @@ export const addQuote = async (req, res) => {
               console.log(err);
               res.status(500).json(err);
             });
+          })
+          .catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+          });
         }
       })
       .catch((err) => {
