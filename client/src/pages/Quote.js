@@ -98,7 +98,8 @@ const Quote = () => {
               id="address1"
               className="p-2 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
               value={address1}
-              onChange={(e) => setAddress1(e.target.value)}
+              // onChange={(e) => setAddress1(e.target.value)}
+              readOnly
             />
           </div>
           <div className="flex flex-col">
@@ -108,7 +109,8 @@ const Quote = () => {
               id="address2"
               className="p-2 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
               value={address2}
-              onChange={(e) => setAddress2(e.target.value)}
+              // onChange={(e) => setAddress2(e.target.value)}
+              readOnly
             />
           </div>
           <div>
@@ -122,7 +124,8 @@ const Quote = () => {
                 id="city"
                 className="p-2 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
                 value={city}
-                onChange={(e) => setCity(e.target.value)}
+                // onChange={(e) => setCity(e.target.value)}
+                readOnly
               />
               <Select
                 name="states"
@@ -146,7 +149,8 @@ const Quote = () => {
                 id="zipcode"
                 className="p-2 bg-white border-2 border-slate-500 focus:outline-none focus:bg-white focus:border-sky-500 focus:ring-1 focus:ring-sky-500 rounded-md"
                 value={zip}
-                onChange={(e) => setZip(e.target.value)}
+                // onChange={(e) => setZip(e.target.value)}
+                readOnly
               />
               <input
                 name="date"
