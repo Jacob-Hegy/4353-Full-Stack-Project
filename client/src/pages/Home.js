@@ -119,7 +119,7 @@ const Home = () => {
           )}
           <div className="flex-1 text-white justify-center m-auto">
             <div
-              className={`w-[540px] h-[450px] px-[53px] py-[29px] text-black text-[17px] font-medium bg-white border-4 border-[#89CDFE] rounded-lg ${
+              className={`w-auto h-auto max-w-[540px] px-[53px] py-[29px] text-black text-[17px] font-medium bg-white border-4 border-[#89CDFE] rounded-lg ${
                 !isAboveMediumScreens && "mx-auto"
               }`}
             >
