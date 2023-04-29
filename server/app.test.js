@@ -10,6 +10,7 @@ describe("POST /auth/register", () => {
         username: "user",
         password: "pass",
       });
+      console.log("Status code for initial register is: ", res.statusCode);
       expect(res.statusCode).toBe(201);
     });
 
@@ -67,45 +68,65 @@ describe("POST /auth/login", () => {
 describe("PATCH /user/:id/saveProfile", () => {
   describe("given a client information", () => {
     // create userCreditial and clientInformation tables' entry with info
-    request(app)
-      .post("/auth/login")
-      .send({
+    let token = "";
+    beforeAll(async () => {
+      const res = await request(app).post("/auth/login").send({
         username: "user",
         password: "pass",
-      })
-      .then((data) => {
-        test("should respond with 200 status code", async () => {
-          const res = await request(app).patch("/user/user/saveProfile").send({
-            id2: "a",
-            fullname: "Udochukwu Amaefule",
-            address1: "081 Russel Meadows",
-            address2: "Apt. 928",
-            city: "East Landen",
-            state: "New Jersey",
-            zip: 59807,
-          });
-          expect(res.statusCode).toBe(200);
-        });
-        test("responds with clientInformation json", async () => {
-          const res = await request(app).patch("/user/user/saveProfile").send({
-            id2: "a",
-            fullname: "Udochukwu Amaefule",
-            address1: "081 Russel Meadows",
-            address2: "Apt. 928",
-            city: "East Landen",
-            state: "New Jersey",
-            zip: 59807,
-          });
-          expect(res.headers["content-type"]).toEqual(
-            expect.stringContaining("json")
-          );
-        });
       });
+      token = res.body.token;
+    });
+
+    let verifReq;
+    beforeEach(async () => {
+      verifReq = request.agent(app).set("Authorization", token);
+    });
+
+    test("should respond with 200 status code", async () => {
+      const res = await request(app).patch("/user/user/saveProfile").send({
+        id2: "a",
+        fullname: "Udochukwu Amaefule",
+        address1: "081 Russel Meadows",
+        address2: "Apt. 928",
+        city: "East Landen",
+        state: "New Jersey",
+        zip: 59807,
+      });
+      expect(res.statusCode).toBe(200);
+    });
+    test("responds with clientInformation json", async () => {
+      const res = await request(app).patch("/user/user/saveProfile").send({
+        id2: "a",
+        fullname: "Udochukwu Amaefule",
+        address1: "081 Russel Meadows",
+        address2: "Apt. 928",
+        city: "East Landen",
+        state: "New Jersey",
+        zip: 59807,
+      });
+      expect(res.headers["content-type"]).toEqual(
+        expect.stringContaining("json")
+      );
+    });
   });
 
   /* ADD QUOTE */
   describe("POST /quote/:id/addQuote", () => {
     describe("given a quote information", () => {
+      let token = "";
+      beforeAll(async () => {
+        const res = await request(app).post("/auth/login").send({
+          username: "user",
+          password: "pass",
+        });
+        token = res.body.token;
+      });
+
+      let verifReq;
+      beforeEach(async () => {
+        verifReq = request.agent(app).set("Authorization", token);
+      });
+      
       // create Fuel Quote entry with given information and return price value
       test("should respond with 200 status code", async () => {
         const res = await request(app).post("/quote/user/addQuote").send({

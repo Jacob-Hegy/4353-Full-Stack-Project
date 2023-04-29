@@ -5,7 +5,9 @@ import db from "../database.js";
 // REGISTER USER
 export const register = async (req, res) => {
   const { username, password } = req.body;
-  if (username.length > 256) { return res.status(409).json({msg: "Username too long" }); }
+  if (username.length > 256) {
+    return res.status(409).json({ msg: "Username too long" });
+  }
   const salt = bcrypt.genSaltSync(10);
   const passwordHash = bcrypt.hashSync(password, salt);
   try {
@@ -18,14 +20,14 @@ export const register = async (req, res) => {
         ]).then((data) => {
           db.query("INSERT INTO ClientInformation (ID) VALUES (?)", [
             username,
+          ]).then((data) => {
+            db.query("SELECT * FROM ClientInformation WHERE ID = ?", [
+              username,
             ]).then((data) => {
-              db.query("SELECT * FROM ClientInformation WHERE ID = ?", [
-                username,
-              ]).then((data) => {
-                console.log(data);
-                res.status(201).json(username);
-              });
+              // console.log(data);
+              res.status(201).json(username);
             });
+          });
         });
       })
       .catch((err) => {
@@ -41,7 +43,7 @@ export const register = async (req, res) => {
 
 // LOGGIN IN
 export const login = async (req, res) => {
-  const {username, password} = req.body;
+  const { username, password } = req.body;
   try {
     db.query("SELECT * FROM UserCredentials WHERE ID = ?", [username]).then(
       (data) => {
@@ -56,12 +58,14 @@ export const login = async (req, res) => {
           expiresIn: "1h",
         });
 
-        db.query("SELECT * FROM ClientInformation WHERE ID = ?", [data[0][0].ID])
+        db.query("SELECT * FROM ClientInformation WHERE ID = ?", [
+          data[0][0].ID,
+        ])
           .then((data) => {
             res
               .cookie("token", token, { httpOnly: true })
               .status(200)
-              .json(data[0][0]);
+              .json({ ...data[0][0], token: token });
           })
           .catch((err) => {
             console.log(err);
@@ -79,4 +83,4 @@ export const login = async (req, res) => {
 // LOGGIN OUT
 export const logout = async (req, res) => {
   res.cookie("token", "").json(true);
-}
+};
